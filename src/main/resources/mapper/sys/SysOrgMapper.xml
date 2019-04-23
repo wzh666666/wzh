@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juzheng.mapper.sys.SysOrgMapper">
+  <resultMap id="BaseResultMap" type="com.juzheng.entity.sys.SysOrg">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dept_name, type
+  </sql>
+  <select id="select" parameterType="com.juzheng.entity.sys.SysOrg" resultType="com.juzheng.entity.sys.SysOrg">
+    select 
+    id,dept_name deptName,type
+    from sys_org
+    where 1=1   
+   
+     <if test="id != null">
+          and id = #{id,jdbcType=INTEGER}
+      </if>
+    <if test="deptName != null and deptName!=''">
+         and dept_name = #{deptName,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null">
+        and type = #{type,jdbcType=INTEGER}
+      </if>
+    
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_org
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ 
+ 
+  <insert id="insert" parameterType="com.juzheng.entity.sys.SysOrg"
+  useGeneratedKeys="true"  keyProperty="id" keyColumn="id">
+    insert into sys_org
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.juzheng.entity.sys.SysOrg">
+    update sys_org
+    <set>
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

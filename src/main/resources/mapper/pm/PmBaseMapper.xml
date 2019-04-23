@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juzheng.mapper.pm.PmBaseMapper">
+  <resultMap id="BaseResultMap" type="com.juzheng.entity.pm.PmBase">
+    <id column="pm_id" jdbcType="INTEGER" property="pmId" />
+    <result column="pm_no" jdbcType="VARCHAR" property="pmNo" />
+    <result column="pm_type" jdbcType="VARCHAR" property="pmType" />
+    <result column="pm_name" jdbcType="VARCHAR" property="pmName" />
+    <result column="pm_dept" jdbcType="INTEGER" property="pmDept" />
+    <result column="pm_standard" jdbcType="DOUBLE" property="pmStandard" />
+    <result column="pm_count" jdbcType="DOUBLE" property="pmCount" />
+    <result column="pm_money" jdbcType="DOUBLE" property="pmMoney" />
+    <result column="pm_sign_time" jdbcType="TIMESTAMP" property="pmSignTime" />
+    <result column="pm_source" jdbcType="INTEGER" property="pmSource" />
+    <result column="pm_state" jdbcType="INTEGER" property="pmState" />
+    <result column="pm_remark" jdbcType="VARCHAR" property="pmRemark" />
+    <result column="pm_create_id" jdbcType="INTEGER" property="pmCreateId" />
+    <result column="pm_measurement" jdbcType="INTEGER" property="pmMeasurement" />
+    <result column="pm_info" jdbcType="INTEGER" property="pmInfo" />
+    <result column="if_edit" jdbcType="INTEGER" property="ifEdit" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pm_id pmId, pm_no pmNo, pm_type pmType, pm_name pmName, pm_dept  pmDept, pm_standard  pmStandard, pm_count pmCount, pm_money pmMoney, pm_sign_time pmSignTime, 
+    pm_source pmSource, pm_state pmState, pm_remark pmRemark, pm_create_id pmCreateId, pm_measurement pmMeasurement, pm_info pmInfo, if_edit ifEdit
+  </sql>
+  
+  <select id="select" parameterType="com.juzheng.entity.pm.PmBase" resultType="com.juzheng.entity.pm.PmBase">
+   select 
+    pm_id pmId, pm_no pmNo, pm_type pmType, pm_name pmName, pm_dept  pmDept, pm_standard  pmStandard, pm_count pmCount, 
+	pm_money pmMoney, pm_sign_time pmSignTime, 
+    pm_source pmSource, pm_state pmState, pm_remark pmRemark,
+ 	pm_create_id pmCreateId, pm_measurement pmMeasurement, pm_info pmInfo,
+ 		if_edit ifEdit,
+		(select so.dept_name from sys_org so where  so.id=pb.pm_dept )   deptName
+    from pm_base pb  
+    where  1=1  
+    
+   
+    <if test="pmId != null">
+        and pm_id = #{pmId}
+      </if>
+ 	  <if test="pmNo != null and pmNo != ''">
+       and pm_no like concat('%', #{pmNo},'%') 
+      </if>
+      <if test="pmType != null">
+       and  pm_type = #{pmType}
+      </if>
+      <if test="pmName != null and pmName != ''">
+        and pm_name like concat('%', #{pmName},'%') 
+      </if>
+      <if test="pmDept != null">
+       and  pm_dept = #{pmDept,jdbcType=INTEGER}
+      </if>
+      <if test="pmStandard != null">
+        and pm_standard = #{pmStandard,jdbcType=DOUBLE}
+      </if>
+      <if test="pmCount != null">
+        and pm_count = #{pmCount,jdbcType=DOUBLE}
+      </if>
+      <if test="pmMoney != null">
+        and pm_money = #{pmMoney,jdbcType=DOUBLE}
+      </if>
+      <if test="pmSignTime != null">
+        and pm_sign_time = #{pmSignTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="pmSource != null">
+        and pm_source = #{pmSource,jdbcType=INTEGER}
+      </if>
+      <if test="pmState != null">
+        and pm_state = #{pmState,jdbcType=INTEGER}
+      </if>
+      <if test="pmRemark != null">
+        and pm_remark = #{pmRemark,jdbcType=VARCHAR}
+      </if>
+      <if test="pmCreateId != null">
+        and pm_create_id = #{pmCreateId,jdbcType=INTEGER}
+      </if>
+      <if test="pmMeasurement != null">
+       and  pm_measurement = #{pmMeasurement,jdbcType=INTEGER}
+      </if>
+      <if test="pmInfo != null">
+       and  pm_info = #{pmInfo,jdbcType=INTEGER}
+      </if>
+      <if test="ifEdit != null">
+        and if_edit = #{ifEdit,jdbcType=INTEGER}
+      </if>
+      order by  pm_id  desc
+    	<if test="startIndex!= null and pageSize!=null">
+			limit #{startIndex},#{pageSize}
+		</if>   
+  </select>
+  
+  
+  <select id="count" parameterType="com.juzheng.entity.pm.PmBase" resultType="Integer">
+   select 
+   	count(*) 
+   	 from pm_base pb  
+    where  1=1  
+    
+    <if test="pmId != null">
+        and pm_id = #{pmId}
+      </if>
+     <if test="pmNo != null and pmNo != ''">
+       and pm_no like concat('%', #{pmNo},'%') 
+      </if>
+      <if test="pmType != null">
+       and  pm_type = #{pmType}
+      </if>
+        <if test="pmName != null and pmName != ''">
+        and pm_name like concat('%', #{pmName},'%') 
+      </if>
+      <if test="pmDept != null">
+       and  pm_dept = #{pmDept,jdbcType=INTEGER}
+      </if>
+      <if test="pmStandard != null">
+        and pm_standard = #{pmStandard,jdbcType=DOUBLE}
+      </if>
+      <if test="pmCount != null">
+        and pm_count = #{pmCount,jdbcType=DOUBLE}
+      </if>
+      <if test="pmMoney != null">
+        and pm_money = #{pmMoney,jdbcType=DOUBLE}
+      </if>
+      <if test="pmSignTime != null">
+        and pm_sign_time = #{pmSignTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="pmSource != null">
+        and pm_source = #{pmSource,jdbcType=INTEGER}
+      </if>
+      <if test="pmState != null">
+        and pm_state = #{pmState,jdbcType=INTEGER}
+      </if>
+      <if test="pmRemark != null">
+        and pm_remark = #{pmRemark,jdbcType=VARCHAR}
+      </if>
+      <if test="pmCreateId != null">
+        and pm_create_id = #{pmCreateId,jdbcType=INTEGER}
+      </if>
+      <if test="pmMeasurement != null">
+       and  pm_measurement = #{pmMeasurement,jdbcType=INTEGER}
+      </if>
+      <if test="pmInfo != null">
+       and  pm_info = #{pmInfo,jdbcType=INTEGER}
+      </if>
+      <if test="ifEdit != null">
+        and if_edit = #{ifEdit,jdbcType=INTEGER}
+      </if>
+   
+  </select>
+  
+    <select id="findMaxId"  resultType="Integer">
+  	select  MAX(pm_id)  from pm_base
+  	</select>
+  
+  
+  
+  
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pm_base
+    where pm_id = #{pmId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.juzheng.entity.pm.PmBase"
+  useGeneratedKeys="true"  keyProperty="pmId" keyColumn="pm_id">
+    insert into pm_base
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pmId != null">
+        pm_id,
+      </if>
+      <if test="pmNo != null">
+        pm_no,
+      </if>
+      <if test="pmType != null">
+        pm_type,
+      </if>
+      <if test="pmName != null">
+        pm_name,
+      </if>
+      <if test="pmDept != null">
+        pm_dept,
+      </if>
+      <if test="pmStandard != null">
+        pm_standard,
+      </if>
+      <if test="pmCount != null">
+        pm_count,
+      </if>
+      <if test="pmMoney != null">
+        pm_money,
+      </if>
+      <if test="pmSignTime != null">
+        pm_sign_time,
+      </if>
+      <if test="pmSource != null">
+        pm_source,
+      </if>
+      <if test="pmState != null">
+        pm_state,
+      </if>
+      <if test="pmRemark != null">
+        pm_remark,
+      </if>
+      <if test="pmCreateId != null">
+        pm_create_id,
+      </if>
+      <if test="pmMeasurement != null">
+        pm_measurement,
+      </if>
+      <if test="pmInfo != null">
+        pm_info,
+      </if>
+      <if test="ifEdit != null">
+        if_edit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pmId != null">
+        #{pmId,jdbcType=INTEGER},
+      </if>
+      <if test="pmNo != null">
+        #{pmNo,jdbcType=VARCHAR},
+      </if>
+      <if test="pmType != null">
+        #{pmType},
+      </if>
+      <if test="pmName != null">
+        #{pmName,jdbcType=VARCHAR},
+      </if>
+      <if test="pmDept != null">
+        #{pmDept,jdbcType=INTEGER},
+      </if>
+      <if test="pmStandard != null">
+        #{pmStandard,jdbcType=DOUBLE},
+      </if>
+      <if test="pmCount != null">
+        #{pmCount,jdbcType=DOUBLE},
+      </if>
+      <if test="pmMoney != null">
+        #{pmMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="pmSignTime != null">
+        #{pmSignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pmSource != null">
+        #{pmSource,jdbcType=INTEGER},
+      </if>
+      <if test="pmState != null">
+        #{pmState,jdbcType=INTEGER},
+      </if>
+      <if test="pmRemark != null">
+        #{pmRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="pmCreateId != null">
+        #{pmCreateId,jdbcType=INTEGER},
+      </if>
+      <if test="pmMeasurement != null">
+        #{pmMeasurement,jdbcType=INTEGER},
+      </if>
+      <if test="pmInfo != null">
+        #{pmInfo,jdbcType=INTEGER},
+      </if>
+      <if test="ifEdit != null">
+        #{ifEdit,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.juzheng.entity.pm.PmBase">
+    update pm_base
+    <set>
+      <if test="pmNo != null">
+        pm_no = #{pmNo,jdbcType=VARCHAR},
+      </if>
+      <if test="pmType != null">
+        pm_type = #{pmType},
+      </if>
+      <if test="pmName != null">
+        pm_name = #{pmName,jdbcType=VARCHAR},
+      </if>
+      <if test="pmDept != null">
+        pm_dept = #{pmDept,jdbcType=INTEGER},
+      </if>
+      <if test="pmStandard != null">
+        pm_standard = #{pmStandard,jdbcType=DOUBLE},
+      </if>
+      <if test="pmCount != null">
+        pm_count = #{pmCount,jdbcType=DOUBLE},
+      </if>
+      <if test="pmMoney != null">
+        pm_money = #{pmMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="pmSignTime != null">
+        pm_sign_time = #{pmSignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pmSource != null">
+        pm_source = #{pmSource,jdbcType=INTEGER},
+      </if>
+      <if test="pmState != null">
+        pm_state = #{pmState,jdbcType=INTEGER},
+      </if>
+      <if test="pmRemark != null">
+        pm_remark = #{pmRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="pmCreateId != null">
+        pm_create_id = #{pmCreateId,jdbcType=INTEGER},
+      </if>
+      <if test="pmMeasurement != null">
+        pm_measurement = #{pmMeasurement,jdbcType=INTEGER},
+      </if>
+      <if test="pmInfo != null">
+        pm_info = #{pmInfo,jdbcType=INTEGER},
+      </if>
+      <if test="ifEdit != null">
+        if_edit = #{ifEdit,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pm_id = #{pmId,jdbcType=INTEGER}
+  </update>
+ 
+</mapper>
