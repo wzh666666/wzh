@@ -8,6 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.juzheng.mapper")
 public class WzhApplication {
 
+
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(WzhApplication.class, args);
 	}
